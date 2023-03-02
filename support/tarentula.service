@@ -1,0 +1,15 @@
+[Unit]
+Description=e2e-encrypted distributed clipboard
+After=network.target
+
+[Service]
+StandardOutput=null
+StandardError=journal
+LimitNOFILE=4096
+ExecStart=/usr/bin/tarentula server
+ExecReload=kill -HUP $MAINPID
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

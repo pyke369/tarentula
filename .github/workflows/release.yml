@@ -1,0 +1,20 @@
+on:
+  release:
+    types: [created]
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, darwin, freebsd, openbsd, netbsd, windows]
+        goarch: [amd64, arm64]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: "https://go.dev/dl/go1.22.1.linux-amd64.tar.gz"
+          md5sum: false
